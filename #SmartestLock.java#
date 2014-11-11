@@ -1,4 +1,4 @@
-public class SmartestLock implements ReadWriteLock {
+public class SmartestLock implements Garden {
     int readingReaders = 0;
     int waitingWriters = 0;
     boolean preferWriter = true;

@@ -1,22 +1,21 @@
-import java.awt.Canvas;
-import java.awt.Graphics;
-import java.awt.Color;
+
+//　引用ソースが画像描画機能だったため、あまりにも大々的に改造して原型がなくなっている。
+
 import java.util.Random;
 
-public class DataViewer extends Canvas implements Runnable {
+public class DataViewer{
     DataKeeper data;
-    int values[];
+    int comes;
     int x;
     int interval = -1000;
     Random random = new Random();
 
     public DataViewer(DataKeeper data) {
 	this.data = data;
-	setSize(361, 201);
     }
 
     public void start() {
-	new Thread(this).start();
+	//	new Thread(this).start();
     }
 
     public void setInterval(int interval) {
@@ -25,12 +24,13 @@ public class DataViewer extends Canvas implements Runnable {
 
     public void put(int value) {
 	synchronized (this) {
-	    values[x] = value;
-	    x++;
+	    comes = value; //配列ではなく整数をプラス。
+	    x++; //それにより、モニターは閲覧回数をカウントしてゆく。
 	}
-	repaint();
+	//repaint();
     }
 
+    /*
     //// extends Canvas
     public void paint(Graphics g) {
 	g.clearRect(0, 0, 360, 200);
@@ -48,13 +48,14 @@ public class DataViewer extends Canvas implements Runnable {
 	    }
 	}
     }
+    */
 
     //// implements Runnable
     public void run() {
 	while (true) {
 	    x = 0;
-	    repaint();
-	    values = new int[360];
+	    //repaint();
+	    int comes;
 	    data.read(this);
 	    try {
 		int t = (interval < 0) ? random.nextInt(-interval) : interval;

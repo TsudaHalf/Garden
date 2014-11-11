@@ -1,4 +1,4 @@
-mport java.util.Random;
+import java.util.Random;
 
 public class DataGenerator extends Thread {
     DataKeeper data;
@@ -16,7 +16,7 @@ public class DataGenerator extends Thread {
 	this.interval = interval;
     }
 
-    public int get() {
+    public int get() { //参考元では座標計算をしていたがカット。
 	int y = (int)(100.0 * Math.sin((x-p)*Math.PI/180.0));
 	x++;
 	return y;
